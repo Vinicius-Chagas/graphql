@@ -1,0 +1,64 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Company {
+  createdAt: DateTime!
+  description: String!
+  email: String!
+  id: String!
+  name: String!
+  phone: String!
+  updatedAt: DateTime!
+}
+
+input CreateJobInput {
+  description: String!
+  jobTitle: String!
+  jobType: JobType!
+  location: String!
+  salary: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Job {
+  createdAt: DateTime!
+  description: String!
+  id: String!
+  jobTitle: String!
+  jobType: JobType!
+  location: String!
+  salary: String!
+  updatedAt: DateTime!
+}
+
+"""The type of job"""
+enum JobType {
+  CONTRACT
+  FULL_TIME
+  INTERNSHIP
+  PART_TIME
+}
+
+type Mutation {
+  create(job: CreateJobInput!): Job!
+  delete(id: String!): Boolean!
+  update(id: String!, job: UpdateJobInput!): Boolean!
+}
+
+type Query {
+  findAll: [Job!]!
+  findOne(id: String!): Job!
+}
+
+input UpdateJobInput {
+  description: String
+  jobTitle: String
+  jobType: JobType
+  location: String
+  salary: String
+}

@@ -1,4 +1,4 @@
-import { Args, Query, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Job } from './entities/job.entity';
 import { JobService } from './job.service';
 import { UpdateJobInput } from './DTOs/UpdateJobInput';
@@ -26,8 +26,8 @@ export class JobResolver {
     }
   }
 
-  @Query(() => Job)
-  async create(@Args('Job', { type: () => CreateJobInput }) job: Job) {
+  @Mutation(() => Job)
+  async create(@Args('job', { type: () => CreateJobInput }) job: CreateJobInput) {
     try {
       return await this.jobService.create(job);
     } catch (error) {
@@ -35,7 +35,7 @@ export class JobResolver {
     }
   }
 
-  @Query(() => Boolean)
+  @Mutation(() => Boolean)
   async delete(@Args('id') id: string) {
     try {
       await this.jobService.delete(id);
@@ -46,7 +46,7 @@ export class JobResolver {
     }
   }
 
-  @Query(() => Boolean)
+  @Mutation(() => Boolean)
   async update(
     @Args('id') id: string,
     @Args('job', { type: () => UpdateJobInput }) job: UpdateJobInput,

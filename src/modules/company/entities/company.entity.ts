@@ -16,6 +16,7 @@ export class Company extends AbstractEntity {
   @Field()
   @Column({ type: 'varchar', length: 100 })
   email: string;
+
   @Field()
   @Column({ type: 'varchar', length: 20 })
   phone: string;

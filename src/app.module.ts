@@ -6,6 +6,7 @@ import { TypeOrmModule } from './database/typeorm.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { JobModule } from './modules/job/job.module';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -14,8 +15,10 @@ import { JobModule } from './modules/job/job.module';
     TypeOrmModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      autoSchemaFile: 'schema.gql',
+      autoSchemaFile: join(process.cwd(), 'schema.gql'),
       sortSchema: true,
+      debug: true,
+      playground: true,
     }),
   ],
   controllers: [AppController],

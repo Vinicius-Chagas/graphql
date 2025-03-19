@@ -1,4 +1,4 @@
-import { Args, Query, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Company } from './entities/company.entity';
 import { CompanyService } from './company.service';
 import { CreateCompanyInput } from './DTOs/CreateCompanyInput';
@@ -26,7 +26,7 @@ export class CompanyResolver {
     }
   }
 
-  @Query(() => Company)
+  @Mutation(() => Company)
   async create(@Args('company', { type: () => CreateCompanyInput }) company: CreateCompanyInput) {
     try {
       return await this.companyService.create(company);
@@ -35,7 +35,7 @@ export class CompanyResolver {
     }
   }
 
-  @Query(() => Boolean)
+  @Mutation(() => Boolean)
   async delete(@Args('id') id: string) {
     try {
       await this.companyService.delete(id);
@@ -46,7 +46,7 @@ export class CompanyResolver {
     }
   }
 
-  @Query(() => Company)
+  @Mutation(() => Boolean)
   async update(
     @Args('id') id: string,
     @Args('company', { type: () => UpdateCompanyInput }) company: UpdateCompanyInput,
