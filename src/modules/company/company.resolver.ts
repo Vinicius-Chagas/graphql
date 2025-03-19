@@ -9,7 +9,7 @@ export class CompanyResolver {
   constructor(private companyService: CompanyService) {}
 
   @Query(() => [Company])
-  async findAll() {
+  async findAllCompanies() {
     try {
       return await this.companyService.findAll();
     } catch (error) {
@@ -18,7 +18,7 @@ export class CompanyResolver {
   }
 
   @Query(() => Company)
-  async findOne(@Args('id') id: string) {
+  async findOneCompany(@Args('id') id: string) {
     try {
       return await this.companyService.findOne(id);
     } catch (error) {
@@ -27,7 +27,9 @@ export class CompanyResolver {
   }
 
   @Mutation(() => Company)
-  async create(@Args('company', { type: () => CreateCompanyInput }) company: CreateCompanyInput) {
+  async createCompany(
+    @Args('company', { type: () => CreateCompanyInput }) company: CreateCompanyInput,
+  ) {
     try {
       return await this.companyService.create(company);
     } catch (error) {
@@ -36,7 +38,7 @@ export class CompanyResolver {
   }
 
   @Mutation(() => Boolean)
-  async delete(@Args('id') id: string) {
+  async deleteCompany(@Args('id') id: string) {
     try {
       await this.companyService.delete(id);
       return true;
@@ -47,7 +49,7 @@ export class CompanyResolver {
   }
 
   @Mutation(() => Boolean)
-  async update(
+  async updateCompany(
     @Args('id') id: string,
     @Args('company', { type: () => UpdateCompanyInput }) company: UpdateCompanyInput,
   ) {

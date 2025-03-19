@@ -9,7 +9,7 @@ export class JobResolver {
   constructor(private jobService: JobService) {}
 
   @Query(() => [Job])
-  async findAll() {
+  async findAllJobs() {
     try {
       return await this.jobService.findAll();
     } catch (error) {
@@ -18,7 +18,7 @@ export class JobResolver {
   }
 
   @Query(() => Job)
-  async findOne(@Args('id') id: string) {
+  async findOneJob(@Args('id') id: string) {
     try {
       return await this.jobService.findOne(id);
     } catch (error) {
@@ -27,7 +27,7 @@ export class JobResolver {
   }
 
   @Mutation(() => Job)
-  async create(@Args('job', { type: () => CreateJobInput }) job: CreateJobInput) {
+  async createJob(@Args('job', { type: () => CreateJobInput }) job: CreateJobInput) {
     try {
       return await this.jobService.create(job);
     } catch (error) {
@@ -36,7 +36,7 @@ export class JobResolver {
   }
 
   @Mutation(() => Boolean)
-  async delete(@Args('id') id: string) {
+  async deleteJob(@Args('id') id: string) {
     try {
       await this.jobService.delete(id);
       return true;
@@ -47,7 +47,7 @@ export class JobResolver {
   }
 
   @Mutation(() => Boolean)
-  async update(
+  async updateJob(
     @Args('id') id: string,
     @Args('job', { type: () => UpdateJobInput }) job: UpdateJobInput,
   ) {

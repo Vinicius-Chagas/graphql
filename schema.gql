@@ -12,6 +12,13 @@ type Company {
   updatedAt: DateTime!
 }
 
+input CreateCompanyInput {
+  description: String!
+  email: String!
+  name: String!
+  phone: String!
+}
+
 input CreateJobInput {
   description: String!
   jobTitle: String!
@@ -45,14 +52,26 @@ enum JobType {
 }
 
 type Mutation {
-  create(job: CreateJobInput!): Job!
-  delete(id: String!): Boolean!
-  update(id: String!, job: UpdateJobInput!): Boolean!
+  createCompany(company: CreateCompanyInput!): Company!
+  createJob(job: CreateJobInput!): Job!
+  deleteCompany(id: String!): Boolean!
+  deleteJob(id: String!): Boolean!
+  updateCompany(company: UpdateCompanyInput!, id: String!): Boolean!
+  updateJob(id: String!, job: UpdateJobInput!): Boolean!
 }
 
 type Query {
-  findAll: [Job!]!
-  findOne(id: String!): Job!
+  findAllCompanies: [Company!]!
+  findAllJobs: [Job!]!
+  findOneCompany(id: String!): Company!
+  findOneJob(id: String!): Job!
+}
+
+input UpdateCompanyInput {
+  description: String
+  email: String
+  name: String
+  phone: String
 }
 
 input UpdateJobInput {
