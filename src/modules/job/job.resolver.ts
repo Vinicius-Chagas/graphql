@@ -1,26 +1,27 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Info, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Job } from './entities/job.entity';
 import { JobService } from './job.service';
 import { UpdateJobInput } from './DTOs/UpdateJobInput';
 import { CreateJobInput } from './DTOs/CreateJobInput';
+import { GraphQLResolveInfo } from 'graphql';
 
 @Resolver(() => Job)
 export class JobResolver {
   constructor(private jobService: JobService) {}
 
   @Query(() => [Job])
-  async findAllJobs() {
+  async findAllJobs(@Info() info: GraphQLResolveInfo) {
     try {
-      return await this.jobService.findAll();
+      return await this.jobService.findAll(info);
     } catch (error) {
       console.error('Error fetching jobs:', error);
     }
   }
 
   @Query(() => Job)
-  async findOneJob(@Args('id') id: string) {
+  async findOneJob(@Args('id') id: string, @Info() info: GraphQLResolveInfo) {
     try {
-      return await this.jobService.findOne(id);
+      return await this.jobService.findOne(id, info);
     } catch (error) {
       console.error('Error fetching job:', error);
     }
